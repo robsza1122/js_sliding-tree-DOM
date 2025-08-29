@@ -10,20 +10,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const span = document.createElement('span');
 
-    span.textContent = titleNode.textContent;
+    if (
+      titleNode.firstChild &&
+      titleNode.firstChild.nodeType === Node.ELEMENT_NODE &&
+      titleNode.firstChild.tagName === 'SPAN'
+    ) {
+      span.textContent = titleNode.firstChild.textContent;
+      titleNode.replaceChild(span, titleNode.firstChild);
+    } else {
+      span.textContent = titleNode.textContent;
 
-    span.style.cursor = 'pointer';
+      span.style.cursor = 'pointer';
 
-    span.style.userSelect = 'none';
+      span.style.userSelect = 'none';
 
-    item.replaceChild(span, titleNode);
+      item.replaceChild(span, titleNode);
 
-    span.addEventListener('click', (ev) => {
-      ev.stopPropagation();
+      span.addEventListener('click', (ev) => {
+        ev.stopPropagation();
 
-      const hidden = subtitles.classList.toggle('hidden');
+        const hidden = subtitles.classList.toggle('hidden');
 
-      subtitles.style.display = hidden ? 'none' : '';
-    });
+        subtitles.style.display = hidden ? 'none' : '';
+      });
+    }
   }
 });
