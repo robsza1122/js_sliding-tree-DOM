@@ -6,26 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
   for (const item of listItems) {
     const subtitles = item.querySelector('ul');
 
-    if (subtitles) {
-      const titleNode = item.childNodes[0];
+    const titleNode = item.childNodes[0];
 
-      const span = document.createElement('span');
+    const span = document.createElement('span');
 
-      span.textContent = titleNode.textContent;
+    span.textContent = titleNode.textContent;
 
-      span.style.cursor = 'pointer';
+    span.style.cursor = 'pointer';
 
-      span.style.userSelect = 'none';
+    span.style.userSelect = 'none';
 
-      item.replaceChild(span, titleNode);
+    item.replaceChild(span, titleNode);
 
-      span.addEventListener('click', (ev) => {
-        ev.stopPropagation();
+    span.addEventListener('click', (ev) => {
+      ev.stopPropagation();
 
-        const hidden = subtitles.style.display === 'none';
+      const hidden = subtitles.classList.toggle('hidden');
 
-        subtitles.style.display = hidden ? '' : 'none';
-      });
-    }
+      subtitles.style.display = hidden ? 'none' : '';
+    });
   }
 });
